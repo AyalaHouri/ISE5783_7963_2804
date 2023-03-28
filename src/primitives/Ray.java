@@ -6,7 +6,7 @@ public class Ray {
 
     /**
      * Constructor to initialize Double3 based object with its two parameters
-     * @param p0
+     * @param p0 the cen
      * @param dir
      */
     public Ray(Point p0, Vector dir) {

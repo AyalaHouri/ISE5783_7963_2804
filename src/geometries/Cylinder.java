@@ -24,8 +24,8 @@ public class Cylinder extends Tube{
      * @return vector normal
      */
     public Vector getNormal(Point point) {
-        Point center = exisRay.getP0();
-        Vector dir = exisRay.getDir();
+        Point center = axisRay.getP0();
+        Vector dir = axisRay.getDir();
 
         Vector normal = point.subtract(center);
 

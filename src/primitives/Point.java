@@ -67,7 +67,7 @@ public class Point {
     }
 
     /**
-     * recived a point and subtract it with the class point
+     * received a point and subtract it with the class point
      * @param point
      * @return the calculated vector
      */
