@@ -7,16 +7,16 @@ import primitives.Vector;
  * the class represents a sphere in 3D world by a center point and a radius
  */
 public class Sphere extends RadialGeometry{
-    final private Point center;
+    final Point center;
 
     /**
      * Constructor to initialize Sphere based object with its point and radius
      * @param point
      * @param tradius
      */
-    public Sphere(Point point,double tradius){
+    public Sphere(Point tcenter,double tradius){
         super(tradius);
-        center=point;
+        center = tcenter;
     }
 
     /**

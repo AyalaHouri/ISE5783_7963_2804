@@ -4,6 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for primitives.Point class
+ * @author Ayala Houri and Shani Zegal
+ */
 class PointTests {
 
     Point p = new Point(1, 1, 1);

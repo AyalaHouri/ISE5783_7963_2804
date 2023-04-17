@@ -21,11 +21,19 @@ public class Plane {
      * @param point3
      */
     public Plane(Point point1,Point point2,Point point3){
-        Vector V1=point1.subtract(point2);
-        Vector V2=point1.subtract(point3);
-        Vector V3=V1.crossProduct(V2);
         p0=point1;
-        normal=V3.normalize();
+        if(point1.equals(point2) || point1.equals(point3) || point2.equals(point3))
+            throw new IllegalArgumentException("Two or more points are the same");
+
+        Vector v1=point1.subtract(point2);  //vector from point2 to point1
+        Vector v2=point1.subtract(point3);  //vector from point3 to point1
+
+        if(v1.normalize().equals(v2.normalize()))
+            throw new IllegalArgumentException("The vectors have a linear dependency");
+
+        Vector v3=v1.crossProduct(v2);  //cross product to get the perpendicular vector
+
+        normal=v3.normalize();
     }
 
     /**
@@ -35,7 +43,11 @@ public class Plane {
      */
     public Plane(Point point,Vector vector){
         p0=point;
-        normal=vector.normalize();
+        if(!(isZero(vector.length()-1d))){
+            normal=vector.normalize();
+        }
+        else
+            this.normal = vector;
     }
 
     /**
@@ -49,7 +61,7 @@ public class Plane {
      * get function
      * @return the class normal
      */
-    public Vector getNormal(Point point){return normal;}
+    public Vector getNormal(Point point){return getNormal();}
 
 
 }

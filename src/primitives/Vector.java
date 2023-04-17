@@ -10,7 +10,7 @@ public class Vector extends Point{
     public Vector(double x, double y, double z) {
         super(x,y,z);
         if(xyz.equals(Double3.ZERO)){
-            throw new IllegalArgumentException("Zero vector does not allowed");
+            throw new IllegalArgumentException("Zero vector is not allowed");
         }
 
     }

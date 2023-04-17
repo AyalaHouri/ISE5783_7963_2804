@@ -7,7 +7,7 @@ import java.util.Objects;
  * Ayala Houri && Shani Zegal
  */
 public class Point {
-     Double3 xyz;
+     final Double3 xyz;
 
     /**
      * Constructor to initialize point based object with its double
