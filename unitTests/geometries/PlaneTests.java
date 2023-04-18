@@ -33,7 +33,7 @@ public class PlaneTests {
     @Test
     public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
-        // TC01: There is a simple single test here - using a quad
+        // TC01: There is a simple single test here
         Point p1 = new Point(0, 0, 1);
         Point p2 = new Point(1, 0, 0);
         Point p3 = new Point(0, 1, 0);

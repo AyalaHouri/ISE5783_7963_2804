@@ -17,7 +17,7 @@ public class TubeTests {
     @Test
     public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
-        // TC01: There is a simple single test here - using a quad
+        // TC01: There is a simple single test here
         Point p1 = new Point(0,0,1);
         Point p2 = new Point(0,0,2);
         Tube tube = new Tube(5, new Ray(p1,new Vector(1,2,3)));
@@ -30,8 +30,9 @@ public class TubeTests {
 
         // =============== Boundary Values Tests ==================
         // TC11: Addition of point to axis ray gives 90-degree angle
-        assertThrows(IllegalArgumentException.class, //
-                () -> new Tube(5, new Ray(p1,new Vector(1,2,3))).getNormal(new Point(0,0,0)),
+        Ray axisRay = new Ray(new Point(0,0,0),new Vector(0,0,1));
+        Tube t = new Tube(1, axisRay);
+        assertThrows(IllegalArgumentException.class, () -> t.getNormal(new Point(1,0,0)),
                 "Point is \"across\" from axis ray");
     }
 }

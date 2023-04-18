@@ -1,6 +1,7 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Vector;
 
 /**
  * this class represent a Triangle in 3D world by three points
@@ -23,4 +24,8 @@ public class Triangle extends Polygon {
 //        point3=tpoint3;
     }
 
+    @Override
+    public Vector getNormal(Point point) {
+        return super.getNormal(point);
+    }
 }
