@@ -32,7 +32,7 @@ public class TubeTests {
         // TC11: Addition of point to axis ray gives 90-degree angle
         Ray axisRay = new Ray(new Point(0,0,0),new Vector(0,0,1));
         Tube t = new Tube(1, axisRay);
-        assertThrows(IllegalArgumentException.class, () -> t.getNormal(new Point(1,0,0)),
-                "Point is \"across\" from axis ray");
+        Point p = new Point(1,0,0);
+        assertEquals(p, t.getNormal(p), "Point is \"across\" from axis ray");
     }
 }
