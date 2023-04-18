@@ -1,4 +1,5 @@
 package geometries;
+
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -6,44 +7,50 @@ import primitives.Vector;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
-public class Cylinder extends Tube{
+/**
+ * Represents a cylinder in 3D space, defined by a ray (the axis of the cylinder), a radius, and a height.
+ * @author Ayala Houri and Shani Zegal
+ */
+public class Cylinder extends Tube {
+    /**
+     * The height of the cylinder.
+     */
     final private double height;
 
-    public Cylinder(Ray ray,double radius, double height) {
-        super(radius,ray);
+    /**
+     * Constructs a new cylinder with the specified ray, radius, and height.
+     * @param ray The ray that represents the axis of the cylinder.
+     * @param radius The radius of the cylinder.
+     * @param height The height of the cylinder.
+     */
+    public Cylinder(Ray ray, double radius, double height) {
+        super(radius, ray);
         this.height = height;
     }
 
-    @Override
     /**
-     * the function gets a point and calculates the normal of the cylinder. We calculate the dot product between the dir vector and the vector that we get from subtracting
-     * the point from the center of the cylinder axis. If we get zero - we return this vector normalized. If not, we move the center point to be under the "head" of the vector.
-     * If the 2 points are equal - that means the point is on the cylinder axis, and we throw an error.Also, if the new point is out of the cylinder we throw an error. Otherwise, we return the vector we get from subtracting the point
-     * from point new center
-     * @param point
-     * @return vector normal
+     * Returns the normal vector to the cylinder at the specified point.
+     * @param p The point to get the normal vector at.
+     * @return The normal vector to the cylinder at the specified point.
      */
-    public Vector getNormal(Point point) {
-        Point center = axisRay.getP0();
-        Vector dir = axisRay.getDir();
+    @Override
+    public Vector getNormal(Point p) {
+        Point o = axisRay.getP0();
+        Vector v = axisRay.getDir();
 
-        Vector normal = point.subtract(center);
-
-        //are the vectors 90 degrees
-        double scalar = alignZero(dir.dotProduct(normal));
-        if (isZero(scalar)) {
-            return normal.normalize();
+        // projection of P-O on the ray:
+        double t;
+        try {
+            t = alignZero(p.subtract(o).dotProduct(v));
+        } catch (IllegalArgumentException e) { // P = O
+            return v;
         }
 
-        Point p = center.add(dir.scale(scalar));
-        if (point.equals(p)) {
-            throw new IllegalArgumentException("point can't be on cylinder axis");
-        }
-        if(height-scalar==0) {
-            normal = point.subtract(p).normalize();
-            return normal;
-        }
-        throw new IllegalArgumentException("point out of range");
+        // if the point is at a base
+        if (t == 0 || isZero(height - t)) // if it's close to 0, we'll get ZERO vector exception
+            return v;
+
+        o = o.add(v.scale(t));
+        return p.subtract(o).normalize();
     }
-
 }

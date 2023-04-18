@@ -4,14 +4,14 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- * an interface class,this class is the source and the father of all geometries shapes
+ * An interface representing a geometry shape in 3D space.
+ * @author Ayala Houri and Shani Zegal
  */
 public interface Geometry {
     /**
-     * received a point in the plane and return the normal vector
-     * @param point
-     * @return the normal vector
+     * Returns the normal vector to the geometry at the specified point.
+     * @param point The point to get the normal vector at.
+     * @return The normal vector to the geometry at the specified point.
      */
     public abstract Vector getNormal(Point point);
-
 }

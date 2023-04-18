@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static primitives.Util.isZero;
 
+/**
+ * Unit tests for primitives.Point class
+ * @author Ayala Houri and Shani Zegal
+ */
 class VectorTests {
 
     /**

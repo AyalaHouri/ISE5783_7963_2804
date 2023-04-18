@@ -7,40 +7,60 @@ import primitives.Vector;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
-public class Tube extends RadialGeometry{
-    final  Ray axisRay;
-    public Tube(double tempRadius,Ray ray) {
-        super(tempRadius);
-        axisRay =ray;
+/**
+ * Represents a tube in 3D space, defined by a center axis ray and a radius.
+ * @author Ayala Houri and Shani Zegal
+ */
+public class Tube extends RadialGeometry {
+
+    /** The axis ray of the tube. */
+    final Ray axisRay;
+
+    /**
+     * Constructs a new tube object with the specified radius and axis ray.
+     *
+     * @param radius the radius of the tube.
+     * @param axisRay the axis ray of the tube.
+     */
+    public Tube(double radius, Ray axisRay) {
+        super(radius);
+        this.axisRay = axisRay;
     }
 
     /**
-     * the function gets a point and calculates the normal of the tube.
-     * We calculate the dot product between the dir vector and the vector that we get from subtracting
-     * the point from the center of the tube axis. If we get zero - we return this vector normalized.
-     * If not, we move the center point to be under the "head" of the vector.
-     * If the 2 points are equal - that means the point is on the tube axis and we throw an error.
-     * Otherwise, we return the vector we get from subtracting the point
-     * from point new center
-     * @param point point pointing toward the Tube
-     * @return vector normal to the shape
+     * Computes the normal vector to the tube at the specified point.
+     *
+     * @param point the point to compute the normal vector at.
+     * @return the normal vector to the tube at the specified point.
+     * @throws IllegalArgumentException if the specified point is on the tube's axis.
      */
+    @Override
     public Vector getNormal(Point point) {
         Point center = axisRay.getP0();
         Vector dir = axisRay.getDir();
 
         Vector normal = point.subtract(center);
 
-        //are the vectors 90 degrees ?
+        // Calculate the scalar projection of the normal vector onto the axis direction vector.
         double scalar = alignZero(dir.dotProduct(normal));
+
+        // If the scalar projection is zero, the point is on the tube's surface and the normal is the
+        // normalized normal vector.
         if (isZero(scalar)) {
             return normal.normalize();
         }
 
+        // Calculate the point on the axis ray closest to the specified point.
         Point p = center.add(dir.scale(scalar));
+
+        // If the specified point is on the axis ray, throw an exception since there is no defined
+        // normal vector at that point.
         if (point.equals(p)) {
-            throw new IllegalArgumentException("point can't be on tube axis");
+            throw new IllegalArgumentException("Point cannot be on tube axis");
         }
+
+        // Compute the normal vector as the normalized difference between the specified point and the
+        // closest point on the axis ray.
         normal = point.subtract(p).normalize();
         return normal;
     }
