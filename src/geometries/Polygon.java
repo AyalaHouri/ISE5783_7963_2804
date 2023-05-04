@@ -5,6 +5,7 @@ import static primitives.Util.isZero;
 import java.util.List;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
 
 /**
@@ -93,6 +94,10 @@ public class Polygon implements Geometry {
    @Override
    public Vector getNormal(Point point) {
       return plane.getNormal();
+   }
+
+   public List<Point> findIntersections(Ray ray){
+      return null;
    }
 }
 

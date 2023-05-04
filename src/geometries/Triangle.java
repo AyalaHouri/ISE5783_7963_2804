@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * The Triangle class represents a triangle in 3D space by its three points.
@@ -30,5 +33,9 @@ public class Triangle extends Polygon {
     @Override
     public Vector getNormal(Point point) {
         return super.getNormal(point);
+    }
+
+    public List<Point> findIntersections(Ray ray){
+        return null;
     }
 }

@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
@@ -63,5 +65,9 @@ public class Tube extends RadialGeometry {
         // closest point on the axis ray.
         normal = point.subtract(p).normalize();
         return normal;
+    }
+
+    public List<Point> findIntersections(Ray ray){
+        return null;
     }
 }
