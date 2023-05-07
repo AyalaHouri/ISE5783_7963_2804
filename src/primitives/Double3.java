@@ -150,5 +150,7 @@ public class Double3 {
       return d1 < other.d1 && d2 < other.d2 && d3 < other.d3;
    }
    protected double getX() {return this.d1;}
+   protected double getY() {return this.d2;}
+   protected double getZ() {return this.d3;}
 
 }

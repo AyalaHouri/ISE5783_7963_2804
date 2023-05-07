@@ -6,6 +6,8 @@ import primitives.Vector;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+
 /**
  * The Triangle class represents a triangle in 3D space by its three points.
  * It extends the Polygon class.
@@ -35,7 +37,30 @@ public class Triangle extends Polygon {
         return super.getNormal(point);
     }
 
+    /**
+     * Finds the intersection points between a given ray and this triangle.
+     *
+     * @param ray the ray to find the intersection points with
+     * @return a list containing the intersection points, or null if no intersection exists
+     */
     public List<Point> findIntersections(Ray ray){
+        // calculate the normal vectors of the triangle's three edges
+        Vector v1=vertices.get(0).subtract(ray.getP0());
+        Vector v2=vertices.get(1).subtract(ray.getP0());
+        Vector v3=vertices.get(2).subtract(ray.getP0());
+        Vector n1=v1.crossProduct(v2).normalize();
+        Vector n2=v2.crossProduct(v3).normalize();
+        Vector n3=v3.crossProduct(v1).normalize();
+
+        Vector v = ray.getDir();
+
+        // check if the ray intersects the triangle using the normal vectors
+        if(alignZero(n1.dotProduct(v))>0&&alignZero(n2.dotProduct(v))>0&&alignZero(n3.dotProduct(v))>0||
+                alignZero(n1.dotProduct(v))<0&&alignZero(n2.dotProduct(v))<0&&alignZero(n3.dotProduct(v))<0)
+            return this.plane.findIntersections(ray);
+
+        // if there is no intersection, return null
         return null;
     }
+
 }

@@ -106,4 +106,10 @@ public class Point {
     public double getX() {
         return xyz.getX();
     }
+    public double getY() {
+        return xyz.getY();
+    }
+    public double getZ() {
+        return xyz.getZ();
+    }
 }

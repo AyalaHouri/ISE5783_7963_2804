@@ -36,4 +36,19 @@ public class Ray {
     public Vector getDir() {
         return dir;
     }
+
+    /**
+     * Returns the point on this ray at a given distance from its starting point.
+     *
+     * @param t the distance along the ray to calculate the point at
+     * @return the point on the ray at the given distance
+     */
+    public Point getPoint(double t) {
+        // calculate the point on the ray using the parameter t
+        Point p = this.p0.add(this.dir.scale(t));
+
+        // return the calculated point
+        return p;
+    }
+
 }
