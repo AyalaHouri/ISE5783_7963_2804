@@ -1,8 +1,12 @@
 package primitives;
 
+import java.util.List;
+import java.util.Objects;
+
 /**
  * The Ray class represents a ray in three-dimensional space with a starting point and a direction.
- * @author Ayala Houri and Shani Zegal
+ * It provides methods for accessing the starting point, direction, and calculating points along the ray.
+ * The class also includes a method for finding the closest point from a list of points to the ray.
  */
 public class Ray {
     private final Point p0; // The starting point of the ray
@@ -11,7 +15,7 @@ public class Ray {
     /**
      * Constructs a new Ray object with the specified starting point and direction.
      *
-     * @param p0 the starting point of the ray
+     * @param p0  the starting point of the ray
      * @param dir the direction of the ray
      */
     public Ray(Point p0, Vector dir) {
@@ -51,4 +55,39 @@ public class Ray {
         return p;
     }
 
+    /**
+     * Finds the closest point from a list of points to the ray.
+     *
+     * @param point3DList the list of points to find the closest point from
+     * @return the closest point to the ray, or null if the list is empty
+     */
+    public Point findClosestPoint(List<Point> point3DList) {
+        if (point3DList.isEmpty())
+            return null;
+
+        double minDistance = point3DList.get(0).distance(getP0());
+        Point closest = point3DList.get(0);
+
+        for (Point item : point3DList) {
+            if (item.distance(getP0()) < minDistance) {
+                closest = item;
+                minDistance = item.distance(getP0());
+            }
+        }
+
+        return closest;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ray ray = (Ray) o;
+        return p0.equals(ray.p0) && dir.equals(ray.dir);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(p0, dir);
+    }
 }
