@@ -7,9 +7,9 @@ import primitives.Color;
 public class Scene {
 
     private final String name;
-    private final Color background;
-    private final Geometries geometries;
-    private AmbientLight ambientLight;
+    public final Color background;
+    public final Geometries geometries;
+    public AmbientLight ambientLight;
 
     public Scene(SceneBuilder builder) {
         name = builder.name;
