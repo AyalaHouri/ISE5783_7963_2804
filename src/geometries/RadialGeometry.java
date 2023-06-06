@@ -5,7 +5,7 @@ package geometries;
  * It implements the Geometry interface.
  * @author Ayala Houri and Shani Zegal
  */
-public abstract class RadialGeometry implements Geometry {
+public abstract class RadialGeometry extends Geometry {
 
     /** The radius of the radial geometry */
     final double radius;

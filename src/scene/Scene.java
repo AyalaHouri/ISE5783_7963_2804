@@ -8,7 +8,7 @@ public class Scene {
 
     private final String name;
     private final Color background;
-    private final Geometries geometries;
+    public final Geometries geometries;
     private AmbientLight ambientLight;
 
     public Scene(SceneBuilder builder) {
@@ -33,10 +33,6 @@ public class Scene {
     public Scene setAmbientLight(AmbientLight ambientLight) {
         this.ambientLight = ambientLight;
         return this;
-    }
-
-    public Geometries getGeometries() {
-        return geometries;
     }
 
     public static class SceneBuilder {

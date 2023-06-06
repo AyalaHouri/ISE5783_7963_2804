@@ -1,5 +1,5 @@
 package primitives;
-
+import geometries.Intersectable.GeoPoint;
 import java.util.List;
 import java.util.Objects;
 
@@ -77,6 +77,34 @@ public class Ray {
 
         return closest;
     }
+    /**
+     * Returns the GeoPoint from the given list that is closest to the reference point of this object.
+     *
+     * @param geoPointList The list of GeoPoint objects to search for the closest point
+     * @return The GeoPoint object with the closest point to the reference point,
+     *         or null if the list is empty
+     */
+    
+    public GeoPoint getClosestGeoPoint(List<GeoPoint> geoPointList) {
+        if (geoPointList.isEmpty()) {
+            return null;
+        }
+
+        double minDistance = geoPointList.get(0).point.distance(p0);
+        int indexOfElementWithClosestPoint = 0;
+        int iterationIndex = 0;
+
+        for (GeoPoint item : geoPointList) {
+            if (item.point.distance(p0) < minDistance) {
+                minDistance = item.point.distance(p0);
+                indexOfElementWithClosestPoint = iterationIndex;
+            }
+            iterationIndex++;
+        }
+
+        return geoPointList.get(indexOfElementWithClosestPoint);
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -90,4 +118,5 @@ public class Ray {
     public int hashCode() {
         return Objects.hash(p0, dir);
     }
+
 }

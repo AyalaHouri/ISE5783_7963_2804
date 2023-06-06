@@ -11,7 +11,7 @@ import java.util.List;
  * Represents a collection of intersectable geometry objects.
  * @author Ayala Houri and Shani Zegal
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
     // a list of intersectable objects
     private List<Intersectable> intersectables;
 
@@ -67,4 +67,27 @@ public class Geometries implements Intersectable {
 
         return result;
     }
+
+    /**
+     * Finds the intersections between a ray and a collection of intersectable objects.
+     *
+     * @param ray         The ray to intersect with the objects.
+     * @param maxDistance The maximum allowed distance between the ray origin and the intersection point.
+     * @return A list of GeoPoint objects representing the intersections, or null if no intersection is found.
+     */
+    @Override
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        List<GeoPoint> result = null;
+        for (Intersectable item : intersectables) {
+            List<GeoPoint> itemList = item.findGeoIntersectionsHelper(ray, maxDistance);
+            if (itemList != null) {
+                if (result == null) {
+                    result = new LinkedList<>();
+                }
+                result.addAll(itemList);
+            }
+        }
+        return result;
+    }
+
 }

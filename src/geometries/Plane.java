@@ -13,7 +13,7 @@ import primitives.Vector;
  * This class represents a plane in 3D space by a point and normal vector.
  * @author Ayala Houri and Shani Zegal
  */
-public class Plane implements Geometry{
+public class Plane extends Geometry {
     Point p0;
     Vector normal;
 
@@ -114,5 +114,52 @@ public class Plane implements Geometry{
         // return the intersection point in a list
         return List.of(p);
     }
+    /**
+     * Finds the intersections between a ray and the plane represented by this object.
+     *
+     * @param ray         The ray to intersect with the plane.
+     * @param maxDistance The maximum allowed distance between the ray origin and the intersection point.
+     * @return A list of GeoPoint objects representing the intersections, or null if no intersection is found.
+     */
+    @Override
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+        Point P0 = ray.getP0();
+        Vector v = ray.getDir();
+
+        Vector n = normal;
+        //denominator
+        double nv = alignZero(n.dotProduct(v));
+
+        // ray is lying in the plane axis
+        if (isZero(nv)) {
+            return null;
+        }
+
+        //ray cannot start from the plane
+        if (p0.equals(P0)) {
+            return null;
+        }
+
+        Vector P0_Q0 = p0.subtract(P0);
+
+        //numerator
+        double nP0Q0 = alignZero(n.dotProduct(P0_Q0));
+
+        // ray parallel to the plane
+        if (isZero(nP0Q0)) {
+            return null;
+        }
+
+        double t = alignZero(nP0Q0 / nv);
+
+        if (t < 0 || alignZero(t - maxDistance) > 0) {
+            return null;
+        }
+
+        Point point = ray.getPoint(t);
+
+        return List.of(new GeoPoint(this, point));
+    }
+
 
 }
