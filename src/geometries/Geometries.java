@@ -41,34 +41,6 @@ public class Geometries extends Intersectable {
     }
 
     /**
-     * Finds the intersection points between a given ray and the geometry objects in this Geometries object.
-     *
-     * @param ray the ray to find the intersection points with
-     * @return a list containing the intersection points, or null if no intersection exists
-     */
-    @Override
-    public List<Point> findIntersections(Ray ray) {
-        List<Point> result = null;
-
-        // iterate over all the intersectable objects in this Geometries object
-        for (Intersectable item : intersectables) {
-            // find the intersection points between the ray and the current intersectable object
-            List<Point> intersectionPoints = item.findIntersections(ray);
-
-            if (intersectionPoints != null) {
-                // if there are intersection points, add them to the result list
-                if (result == null) {
-                    result = new LinkedList<>();
-                }
-
-                result.addAll(intersectionPoints);
-            }
-        }
-
-        return result;
-    }
-
-    /**
      * Finds the intersections between a ray and a collection of intersectable objects.
      *
      * @param ray         The ray to intersect with the objects.

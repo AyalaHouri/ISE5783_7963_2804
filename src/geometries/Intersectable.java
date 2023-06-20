@@ -29,13 +29,10 @@ public abstract class Intersectable {
      * @return immutable List of intersection points
      */
     public List<Point> findIntersections(Ray ray) {
-        List<GeoPoint> geoList = findGeoIntersections(ray);
-        return geoList == null ? null
-                : geoList.stream()
-                .map(gp -> gp.point)
-                . toList();
-
+        var geoList = findGeoIntersections(ray);
+        return geoList == null ? null : geoList.stream().map(gp -> gp.point).toList();
     }
+
     public final List<GeoPoint> findGeoIntersections(Ray ray) {
         return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }

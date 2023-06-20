@@ -55,28 +55,12 @@ public class Ray {
         return p;
     }
 
-    /**
-     * Finds the closest point from a list of points to the ray.
-     *
-     * @param point3DList the list of points to find the closest point from
-     * @return the closest point to the ray, or null if the list is empty
-     */
-    public Point findClosestPoint(List<Point> point3DList) {
-        if (point3DList.isEmpty())
-            return null;
 
-        double minDistance = point3DList.get(0).distance(getP0());
-        Point closest = point3DList.get(0);
-
-        for (Point item : point3DList) {
-            if (item.distance(getP0()) < minDistance) {
-                closest = item;
-                minDistance = item.distance(getP0());
-            }
-        }
-
-        return closest;
+    public Point findClosestPoint(List<Point> points) {
+        return points == null || points.isEmpty() ? null
+                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
     }
+
     /**
      * Returns the GeoPoint from the given list that is closest to the reference point of this object.
      *
@@ -84,8 +68,8 @@ public class Ray {
      * @return The GeoPoint object with the closest point to the reference point,
      *         or null if the list is empty
      */
-    
-    public GeoPoint getClosestGeoPoint(List<GeoPoint> geoPointList) {
+
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPointList) {
         if (geoPointList.isEmpty()) {
             return null;
         }
@@ -112,6 +96,33 @@ public class Ray {
         if (o == null || getClass() != o.getClass()) return false;
         Ray ray = (Ray) o;
         return p0.equals(ray.p0) && dir.equals(ray.dir);
+    }
+    /**
+     * find the closest point to the ray
+     *
+     * @param geoPointList list of geoPoints
+     *                     (they all the same geometry but different intersection points, if there have more then one intersection point)
+     * @return the geometry with his closest intersection point to the ray (GeoPoint)
+     */
+    public GeoPoint getClosestGeoPoint(List<GeoPoint> geoPointList) {
+
+        if (geoPointList.isEmpty()) return null;
+
+        double minDistance = geoPointList.get(0).point.distance(p0);
+
+        //indexes to find the element with the closest point.
+        int indexOfElementWithClosestPoint = 0;
+        int iterationIndex = 0;
+
+        for (GeoPoint item : geoPointList) {
+            if (item.point.distance(p0) < minDistance) {
+                minDistance = item.point.distance(p0);
+                indexOfElementWithClosestPoint = iterationIndex;
+            }
+            iterationIndex++;
+        }
+
+        return geoPointList.get(indexOfElementWithClosestPoint);
     }
 
     @Override

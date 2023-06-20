@@ -3,13 +3,18 @@ package scene;
 import lighting.AmbientLight;
 import geometries.Geometries;
 import primitives.Color;
+import  lighting.LightSource;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Scene {
 
     private final String name;
-    private final Color background;
+    public final Color background;
     public final Geometries geometries;
     private AmbientLight ambientLight;
+    public List<LightSource> lights = new LinkedList<LightSource>();
 
     public Scene(SceneBuilder builder) {
         name = builder.name;
@@ -65,5 +70,9 @@ public class Scene {
             return new Scene(this);
         }
 
+    }
+    public Scene setLightSourceList(List<LightSource> lightSourceList) {
+        lights = lightSourceList;
+        return this;
     }
 }
