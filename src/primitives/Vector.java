@@ -35,7 +35,8 @@ public class Vector extends Point{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Vector vector)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vector vector = (Vector) o;
         return xyz.equals(vector.xyz);
     }
 
@@ -47,7 +48,7 @@ public class Vector extends Point{
     public String toString() {
         return "Vector{" +
                 "xyz=" + xyz+
-                '}'+super.toString();
+                '}';
     }
 
     /**

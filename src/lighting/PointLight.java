@@ -72,40 +72,35 @@ public class PointLight extends Light implements LightSource {
         return point.distance(this.position);
     }
 
-    /**
-     * Sets the constant attenuation factor (Kc) of the point light.
-     *
-     * @param kc The constant attenuation factor as a Double3 object.
-     * @return The modified PointLight object.
-     * @since 1.0
-     */
     public PointLight setKc(Double3 kc) {
         this.Kc = kc;
         return this;
     }
 
-    /**
-     * Sets the constant attenuation factor (Kc) of the point light.
-     *
-     * @param kc The constant attenuation factor as a double value.
-     * @return The modified PointLight object.
-     * @since 1.0
-     */
     public PointLight setKc(double kc) {
         this.Kc = new Double3(kc);
         return this;
     }
 
-    /**
-     * Sets the linear attenuation factor (Kl) of the point light.
-     *
-     * @param kl The linear attenuation factor as a Double3 object.
-     * @return The modified PointLight object.
-     * @since 1.0
-     */
+
     public PointLight setKl(Double3 kl) {
         this.Kl = kl;
         return this;
+    }
 
+    public PointLight setKl(double kl) {
+        this.Kl = new Double3(kl);
+        return this;
+    }
+
+
+    public PointLight setKq(Double3 kq) {
+        this.Kq = kq;
+        return this;
+    }
+
+    public PointLight setKq(double kq) {
+        this.Kq = new Double3(kq);
+        return this;
     }
 }

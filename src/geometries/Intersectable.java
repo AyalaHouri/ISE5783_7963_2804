@@ -6,6 +6,8 @@ import primitives.Ray;
 import java.util.List;
 import java.util.Objects;
 
+import static java.util.stream.Collectors.toList;
+
 /**
 
  The Intersectable interface represents a geometric object that can be intersected by a ray in 3D space.
@@ -30,7 +32,7 @@ public abstract class Intersectable {
      */
     public List<Point> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
-        return geoList == null ? null : geoList.stream().map(gp -> gp.point).toList();
+        return geoList == null ? null : geoList.stream().map(gp -> gp.point).collect(toList());
     }
 
     public final List<GeoPoint> findGeoIntersections(Ray ray) {
@@ -52,7 +54,8 @@ public abstract class Intersectable {
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof GeoPoint geoPoint)) return false;
+            if (o == null || getClass() != o.getClass()) return false;
+            GeoPoint geoPoint = (GeoPoint) o;
             return Objects.equals(geometry, geoPoint.geometry) && Objects.equals(point, geoPoint.point);
         }
 

@@ -52,13 +52,13 @@ public class Double3 {
     * @return true if the objects are equal, false otherwise
     */
    @Override
-   public boolean equals(Object obj) {
-      if (this == obj) return true;
-      if (obj instanceof Double3 other)
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      Double3 other = (Double3) o;
          return isZero(d1 - other.d1)
                  && isZero(d2 - other.d2)
                  && isZero(d3 - other.d3);
-      return false;
    }
 
    /**

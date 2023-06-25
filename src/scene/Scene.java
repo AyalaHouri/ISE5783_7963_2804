@@ -71,6 +71,12 @@ public class Scene {
         }
 
     }
+    public Geometries getGeometries() {
+        return geometries;
+    }
+    public List<LightSource> getLights() {
+        return lights;
+    }
     public Scene setLightSourceList(List<LightSource> lightSourceList) {
         lights = lightSourceList;
         return this;

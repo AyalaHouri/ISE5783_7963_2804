@@ -5,15 +5,20 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.MissingResourceException;
+import java.util.Random;
 
 public class Camera {
-    private Point p0; //starting point
+    private Point p0; //starting point, camera location
     private Vector vTo;
     private Vector vUp;
     private Vector vRight;
     private double width, height; //view plane size
     private double distance; //distance between camera and view plane
+
+    private int numRays = 1;//number of rays to send
 
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
@@ -58,6 +63,11 @@ public class Camera {
         return this;
     }
 
+    public Camera setNumRays(int num) {
+        this.numRays = num;
+        return this;
+    }
+
     public Camera setVPDistance(double d) {
         this.distance = d;
         return this;
@@ -85,6 +95,39 @@ public class Camera {
     }
 
     public Ray constructRay(int nX, int nY, int j, int i){
+        Point pIJ = middlePoint(nX, nY, j, i);
+
+        // Ratio (pixel width & height)
+        double rX = width / nX;
+        double rY = height / nY;
+
+        Vector vIJ = pIJ.subtract(p0);
+
+        return new Ray(p0, vIJ);
+    }
+
+    public List<Ray> constructRays(int nX, int nY, int j, int i){
+        Point pIJ = middlePoint(nX, nY, j, i);
+
+        // Ratio (pixel width & height)
+        double rX = width / nX;
+        double rY = height / nY;
+
+
+        Random rand = new Random();
+        List<Ray> rays = new LinkedList();
+        for (int k = 0; k < numRays; k++) {
+            Point point = pIJ.add(vRight.scale(rand.nextDouble(-rX/2,rX/2)))
+                    .add(vUp.scale(rand.nextDouble(-rY/2,rY/2)));
+            Vector vector = point.subtract(p0);
+            Ray ray = new Ray(p0,vector);
+            rays.add(ray);
+        }
+
+        return rays;
+    }
+
+    public Point middlePoint(int nX, int nY, int j, int i){
         //Image center
         Point pC = p0.add(vTo.scale(distance));
 
@@ -101,9 +144,7 @@ public class Camera {
         if (xJ != 0) pIJ = pIJ.add(vRight.scale(xJ));
         if (yI != 0) pIJ = pIJ.add(vUp.scale(yI));
 
-        Vector vIJ = pIJ.subtract(p0);
-
-        return new Ray(p0, vIJ);
+        return pIJ;
     }
     public Camera renderImage() {
         try {
@@ -118,7 +159,12 @@ public class Camera {
 
             for (int i = 0; i < nY; i++) {
                 for (int j = 0; j < nX; j++) {
-                    castRay(nX, nY, i, j);
+                    if(this.numRays>1) {
+                        castRays(nX, nY, i, j);
+                    }
+                    else {
+                        castRay(nX, nY, i, j);
+                    }
                 }
             }
         } catch (MissingResourceException e) {
@@ -129,6 +175,16 @@ public class Camera {
     private void castRay(int nX, int nY, int col, int row) {
         Ray ray = constructRay(nX, nY, row, col);
         Color pixelColor = rayTracer.traceRay(ray);
+        imageWriter.writePixel(row, col, pixelColor);
+    }
+
+    private void castRays(int nX, int nY, int col, int row) {
+        List<Ray> rays = constructRays(nX, nY, row, col);
+        Color pixelColor = Color.BLACK;
+        for (Ray ray:rays) {
+            pixelColor = pixelColor.add(rayTracer.traceRay(ray));
+        }
+        pixelColor = pixelColor.reduce(rays.size());
         imageWriter.writePixel(row, col, pixelColor);
     }
     public void printGrid(int interval, Color color) {

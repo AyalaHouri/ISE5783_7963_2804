@@ -1,69 +1,110 @@
 package primitives;
 
 /**
- * The Material class represents the material of an object.
- * It specifies the attenuation factors and shininess of the material.
- * <p>
- * The attenuation factors control the reflection properties of the material,
- * and the shininess factor determines how shiny the material appears.
- * </p>
- * <p>
- * This class is used in conjunction with rendering and lighting calculations.
- * </p>
- *
- * @author Aviel Buta
- * @author Yakir Yohanan
+ * this class represents the different materials of the surfaces
+ * and the reflection of a light component on it,
+ * in three known values: diffusion, specular, and shininess.
  */
 public class Material {
 
     /**
-     * The diffuse attenuation factor.
-     * Determines the scattering of light rays from the surface.
+     *  Kd - diffuse component, represents the scattering of light rays to all directions from the surface
      */
-    public double kD = 0;
+    private Double3 Kd = Double3.ZERO;
 
     /**
-     * The specular attenuation factor.
-     * Represents the reflectance of the light source on the surface.
+     *  Ks - specular component, represents the reflectance of the light source over the surface
      */
-    public double kS = 0;
+    private Double3 Ks = Double3.ZERO;
 
     /**
-     * The shininess factor of the material.
-     * Determines the shininess appearance of the material.
+     *  Shininess - how shiny the material is
      */
-    public int nShininess = 0;
+    private int nShininess = 0;
 
     /**
-     * Sets the diffuse attenuation factor.
-     *
-     * @param kD The diffuse attenuation factor to set.
-     * @return This Material object.
+     *  Kt - transparency component
+     * 0.0 is opaque
+     * 1.0 is clear
      */
-    public Material setkD(double kD) {
-        this.kD = kD;
+    private Double3 Kt = Double3.ZERO;
+
+    /**
+     *  Kr - reflection component
+     * 0.0 is matte
+     * 1.0 is very reflexive
+     */
+    private Double3 Kr = Double3.ZERO;
+
+
+    public Material setKs(double ks) {
+        Ks = new Double3(ks);
         return this;
     }
 
-    /**
-     * Sets the specular attenuation factor.
-     *
-     * @param kS The specular attenuation factor to set.
-     * @return This Material object.
-     */
-    public Material setkS(double kS) {
-        this.kS = kS;
+    public Material setKd(double kd) {
+        this.Kd = new Double3(kd);
         return this;
     }
 
-    /**
-     * Sets the shininess factor of the material.
-     *
-     * @param nShininess The shininess factor to set.
-     * @return This Material object.
-     */
-    public Material setnShininess(int nShininess) {
+    public Material setKs(Double3 ks) {
+        Ks = ks;
+        return this;
+    }
+
+    public Material setKd(Double3 kd) {
+        this.Kd = kd;
+        return this;
+    }
+
+
+    public Material setShininess(int nShininess) {
         this.nShininess = nShininess;
         return this;
     }
+
+    public Material setKt(double kt) {
+        this.Kt = new Double3(kt);
+        return this;
+    }
+
+    public Material setKr(double kr) {
+        this.Kr = new Double3(kr);
+        return this;
+    }
+
+    public Material setKt(Double3 kt) {
+        this.Kt = kt;
+        return this;
+    }
+
+    public Material setKr(Double3 kr) {
+        this.Kr = kr;
+        return this;
+    }
+
+    public Double3 getKs() {
+        return Ks;
+    }
+
+    public Double3 getKd() {
+        return Kd;
+    }
+
+
+    public int getShininess() {
+        return nShininess;
+    }
+
+    public Double3 getKt() {
+        return Kt;
+    }
+
+    public Double3 getKr() {
+        return Kr;
+    }
+
+
 }
+
+

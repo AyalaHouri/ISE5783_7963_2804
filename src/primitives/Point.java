@@ -40,9 +40,11 @@ public class Point {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Point point)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point point = (Point) o;
         return xyz.equals(point.xyz);
     }
+
 
     /**
      * Returns a hash code for this Point object.

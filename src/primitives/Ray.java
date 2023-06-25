@@ -13,14 +13,29 @@ public class Ray {
     private final Vector dir; // The direction of the ray
 
     /**
-     * Constructs a new Ray object with the specified starting point and direction.
-     *
-     * @param p0  the starting point of the ray
-     * @param dir the direction of the ray
+     * DELTA value to move the point away from original point
      */
+    private static final double DELTA = 0.1;
+
     public Ray(Point p0, Vector dir) {
         this.p0 = p0;
-        this.dir = dir.normalize(); // Normalizes the direction vector
+        this.dir = dir.normalize();
+    }
+
+    /**
+     * Constructor for ray deflected by DELTA
+     *
+     * @param p origin
+     * @param n   normal vector
+     * @param dir direction
+     */
+    public Ray(Point p, Vector n, Vector dir) {
+        this.dir = dir.normalize();
+        double nv = n.dotProduct(this.dir);
+        Vector delta  =n.scale(DELTA);
+        if (nv < 0)
+            delta = delta.scale(-1);
+        this.p0 = p.add(delta);
     }
 
     /**
