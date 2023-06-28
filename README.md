@@ -64,9 +64,9 @@ These techniques collectively enhance the realism and visual quality of our rend
 
 ## Rendered Images:
 # Before improvement:
-![NotImproved.jpg](NotImproved.jpg)
+https://github.com/AyalaHouri/ISE5783_7963_2804/blob/master/images/GolfCourt.png
 # After improvement:
-![Improved.jpg](Improved.jpg)
+https://github.com/AyalaHouri/ISE5783_7963_2804/blob/master/images/GolfCourtMP1.png
 ## Creddits:
 ### Developers:
 #### Ayala Houri
