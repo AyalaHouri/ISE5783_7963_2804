@@ -20,9 +20,10 @@ public abstract class RayTracerBase {
     }
 
     /**
-     *  method with trace the ray
-     * @param ray (Ray)
-     * @return right color (Color)
+     * if the ray intersect  the geometry, paint in the right color
+     *
+     * @param ray the ray we check if he intersect with the geometry (Ray)
+     * @return the right color to paint the pixel (Color)
      */
     public abstract Color traceRay(Ray ray);
 

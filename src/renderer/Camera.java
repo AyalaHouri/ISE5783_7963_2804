@@ -392,9 +392,9 @@ public class Camera {
     private Color castRay(double nX, double nY, int col, int row) {
         Ray ray = constructRay(nX, nY, row, col);
         Color pixelColor = rayTracer.traceRay(ray);
-        // imageWriter.writePixel(row, col, pixelColor);
         return pixelColor;
     }
+
 
     /**
      * Casts rays and calculates the color of the pixel by either using adaptive super-sampling or regular sampling.
